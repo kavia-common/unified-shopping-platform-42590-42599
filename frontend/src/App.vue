@@ -1,85 +1,86 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { useShopStore } from './stores/shop'
+import { onMounted } from 'vue'
+
+const store = useShopStore()
+onMounted(() => {
+  store.loadProducts()
+  store.loadCart()
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div class="min-h-screen bg-gray-50 text-gray-900">
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <RouterLink to="/" class="flex items-center gap-2">
+          <span class="inline-block w-3 h-3 rounded-full" style="background:#2563EB"></span>
+          <h1 class="text-lg font-semibold">Ocean Shop</h1>
+        </RouterLink>
+        <nav class="flex items-center gap-6">
+          <RouterLink to="/" class="hover:text-blue-600 transition">Products</RouterLink>
+          <RouterLink to="/checkout" class="hover:text-blue-600 transition">Checkout</RouterLink>
+          <RouterLink to="/checkout" class="relative">
+            <span class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1.5 rounded-full shadow-sm hover:bg-blue-700 transition">
+              Cart
+              <span class="text-xs bg-amber-400 text-black px-2 py-0.5 rounded-full">
+                {{ store.cart?.items.length ?? 0 }}
+              </span>
+            </span>
+          </RouterLink>
+        </nav>
+      </div>
+    </header>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <RouterView />
+    </main>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <footer class="bg-white border-t">
+      <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-500">
+        © {{ new Date().getFullYear() }} Ocean Shop. All rights reserved.
+      </div>
+    </footer>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
+.min-h-screen { min-height: 100vh; }
+.bg-gray-50 { background: #f9fafb; }
+.text-gray-900 { color: #111827; }
+.bg-white { background: #ffffff; }
+.shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.border-t { border-top: 1px solid #e5e7eb; }
+.max-w-6xl { max-width: 72rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: .5rem; }
+.gap-6 { gap: 1.5rem; }
+.text-lg { font-size: 1.125rem; }
+.font-semibold { font-weight: 600; }
+.hover\:text-blue-600:hover { color: #2563EB; }
+.bg-blue-600 { background: #2563EB; }
+.hover\:bg-blue-700:hover { background: #1d4ed8; }
+.text-white { color: #fff; }
+.rounded-full { border-radius: 9999px; }
+.rounded { border-radius: .5rem; }
+.shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.transition { transition: all .2s ease; }
+.text-sm { font-size: .875rem; }
+.text-gray-500 { color: #6b7280; }
+.bg-amber-400 { background: #F59E0B; }
+.text-black { color: #000; }
+.sticky { position: sticky; }
+.top-0 { top: 0; }
+.z-10 { z-index: 10; }
+.inline-block { display: inline-block; }
+.w-3 { width: .75rem; }
+.h-3 { height: .75rem; }
 </style>
