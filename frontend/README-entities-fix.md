@@ -3,16 +3,19 @@
 Symptom:
 - Vite failed to load config with: Cannot find module `entities/lib/decode.js` from `@vue/compiler-core/dist/compiler-core.cjs.js`.
 
-Fixes applied:
-- Pinned `entities` to `^4.5.0` and added `overrides` forcing transitive deps (e.g., `parse5`) to use `entities@^4.5.0`.
-- Added a Vite alias for `entities/lib/decode.js` pointing to `src/lib/entities-decode-shim.js` (safety net).
-- Added a minimal ESLint flat config to satisfy ESLint 9 in CI.
+Clean fix implemented:
+- Enforced `entities@^4.5.0` via package.json `overrides` (including `parse5/entities`) so `node_modules/entities/lib/decode.js` exists.
+- Removed brittle shims and deep alias hacks from `vite.config.ts`.
 
-How to verify:
+How to verify (clean install required):
 1. From `frontend/`:
-   - npm install
+   - rm -rf node_modules package-lock.json
+   - npm install --prefer-offline --no-audit --progress=false
    - npm run dev
-2. Vite should start successfully without the decode.js error.
+2. Confirm:
+   - node_modules/entities/package.json shows version 4.x
+   - node_modules/entities/lib/decode.js exists
+   - Vite starts successfully without the decode.js error.
 
 Notes:
-- If a future upgrade pulls `entities@6.x`, ensure either the compiler is updated to not deep import `lib/decode.js`, or retain the alias/shim mapping.
+- If a future dependency introduces `entities@6.x`, the `overrides` will continue to force a single 4.x instance, maintaining compatibility with the Vue compiler's CJS deep import expectation.
