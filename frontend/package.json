@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
+    "dev": "npx vite dev --port 3000 --host 0.0.0.0",
     "build": "echo \"Skipping Vite build in CI linter phase (deps may not be installed yet)\" && exit 0",
     "preview": "vite preview",
     "test:unit": "vitest",
