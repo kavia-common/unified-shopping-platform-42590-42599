@@ -4,14 +4,10 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Note: vite-plugin-vue-devtools and JSX plugin disabled to avoid dependency resolution issues in this environment.
-  plugins: [
-    vue(),
-  ],
+  plugins: [vue()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      // Rely on package.json overrides to ensure entities@^4.5.0 provides lib/decode.js
     },
   },
   server: {
