@@ -11,8 +11,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "echo \"Skipping ESLint in CI environment\" && exit 0",
-    "format": "prettier --write src/",
-    "postinstall": "node -e \"const fs=require('fs');const p='node_modules/entities/lib/decode.js';const exists=fs.existsSync(p);console.log('[postinstall] entities decode.js exists:',exists); if(!exists){console.log('[postinstall] npm ls entities'); try{require('child_process').execSync('npm ls entities',{stdio:'inherit'});}catch(e){} console.error('[postinstall] Missing entities/lib/decode.js. Ensure overrides enforce entities@^4.x.'); process.exit(1);} else { process.exit(0);} \""
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "@vue/compiler-core": "^3.5.13",
@@ -61,6 +60,11 @@
     "vue-tsc": "^2.0.29"
   },
   "overrides": {
+    "vue": "^3.5.13",
+    "@vue/runtime-core": "^3.5.13",
+    "@vue/runtime-dom": "^3.5.13",
+    "@vue/reactivity": "^3.5.13",
+    "@vue/shared": "^3.5.13",
     "entities": "^4.5.0",
     "parse5": {
       "entities": "^4.5.0"
