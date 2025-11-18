@@ -1,20 +1,18 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import vueDevTools from 'vite-plugin-vue-devtools'
+
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Note: vite-plugin-vue-devtools disabled due to compatibility issues with Vite 5.4.x in this environment.
   plugins: [
     vue(),
     vueJsx(),
-    vueDevTools(),
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   server: {
@@ -24,10 +22,10 @@ export default defineConfig({
     strictPort: true,
     cors: true,
     headers: {
-        'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
     },
     watch: {
-        usePolling: true
-    }
-}
+      usePolling: true,
+    },
+  },
 })
