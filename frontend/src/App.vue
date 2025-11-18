@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { useShopStore } from './stores/shop'
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 
 const store = useShopStore()
+const apiBase = computed(() => import.meta.env.VITE_API_BASE || 'http://localhost:3001/api')
+
 onMounted(() => {
+  // Load data at startup; errors are handled in the store
   store.loadProducts()
   store.loadCart()
 })
@@ -30,6 +33,12 @@ onMounted(() => {
             </span>
           </RouterLink>
         </nav>
+      </div>
+      <div v-if="store.error" class="bg-red-50 text-red-700 text-sm px-4 py-2 border-t border-red-200">
+        {{ store.error }}
+      </div>
+      <div class="bg-gray-50 text-gray-500 text-xs px-4 py-1 border-t">
+        API: {{ apiBase }}
       </div>
     </header>
 

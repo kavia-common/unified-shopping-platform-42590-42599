@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useShopStore } from '@/stores/shop'
+import { RouterLink } from 'vue-router'
 const store = useShopStore()
 
 function add(pid: number) {
