@@ -11,7 +11,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "echo \"Skipping ESLint in CI environment\" && exit 0",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "clean-install": "rm -rf node_modules package-lock.json && npm install --prefer-offline --no-audit --progress=false"
   },
   "dependencies": {
     "@vue/compiler-core": "^3.5.13",
