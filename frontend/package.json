@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npx vite dev --port 3000 --host 0.0.0.0",
+    "dev": "npx vite dev --host 0.0.0.0 --port ${VITE_PORT:-3000}",
+    "dev:port": "VITE_PORT=${PORT:-3000} npm run dev",
     "build": "echo \"Skipping Vite build in CI linter phase (deps may not be installed yet)\" && exit 0",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -12,7 +13,7 @@
     "type-check": "vue-tsc --build",
     "lint": "echo \"Skipping ESLint in CI environment\" && exit 0",
     "format": "prettier --write src/",
-    "clean-install": "rm -rf node_modules package-lock.json && npm install --prefer-offline --no-audit --progress=false"
+    "clean-install": "mv node_modules node_modules.old-$(date +%s) 2>/dev/null || true && mv package-lock.json package-lock.old-$(date +%s) 2>/dev/null || true && npm install --prefer-offline --no-audit --progress=false"
   },
   "dependencies": {
     "@vue/compiler-core": "^3.5.13",

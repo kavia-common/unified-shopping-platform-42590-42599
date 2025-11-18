@@ -1,18 +1,16 @@
-# Frontend dependency note: Vite/Rollup compatibility
+# Dev Server Notes
 
-We pinned Vite to 5.4.10 to resolve a startup failure:
-Error: ERR_MODULE_NOT_FOUND: Cannot find module rollup/dist/es/parseAst.js imported from vite/dist/node/cli.js
+- Preferred dev port is 3000. If it's already in use in the environment, you can start Vite on a different port using:
+  - Environment variable:
+    - VITE_PORT=3002 npm run dev
+  - Convenience script:
+    - PORT=3002 npm run dev:port
 
-Root cause: Vite 6.x in some environments pulls a Rollup build that omits internal paths Vite tried to import. Vite 5.4.x is compatible with Node 18 and does not import internal `rollup/dist/es/parseAst.js`.
+- The dev script now uses host 0.0.0.0 for container access.
 
-Additional fixes:
-- Added `@vue/compiler-sfc@3.5.13` to align with `vue@3.5.13`. This ensures the compiler used by Vite matches the runtime and resolves transitive dependency mismatches like `entities` resolution.
-- Removed `vite-plugin-vue-devtools` to avoid pulling conflicting Vue compiler versions and to ensure the dev server starts cleanly.
+- If you run into missing modules after updating dependencies, perform a clean reinstall:
+  1. mv node_modules node_modules.old-$(date +%s)
+  2. mv package-lock.json package-lock.old-$(date +%s)
+  3. npm install --no-audit --no-fund --progress=false
 
-Current matrix (Node 18):
-- Vite: 5.4.10
-- Vue: 3.5.13
-- @vitejs/plugin-vue: 5.2.x
-- @vitejs/plugin-vue-jsx: 4.1.x
-
-If upgrading Vite to 6.x in the future, ensure the Rollup version and Vite’s internals are compatible, then reintroduce devtools if desired.
+- Current Vite/Vue versions are aligned for Vue 3 with Vite 5.
