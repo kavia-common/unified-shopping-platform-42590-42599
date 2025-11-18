@@ -14,21 +14,30 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vue/compiler-core": "^3.5.13",
+    "@vue/compiler-dom": "^3.5.13",
+    "@vue/compiler-ssr": "^3.5.13",
+    "@vue/language-core": "^2.0.29",
+    "eslint-scope": "^8.2.0",
+    "isexe": "^3.1.1",
     "pinia": "3.0.1",
     "vue": "3.5.13",
-    "vue-router": "4.5.0"
+    "vue-router": "4.5.0",
+    "which": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
+    "entities": "4.5.0",
+    "espree": "10.4.0",
+    "eslint-visitor-keys": "4.2.1",
+    "@babel/core": "^7.27.1",
     "@babel/plugin-syntax-jsx": "^7.27.1",
     "@babel/template": "^7.27.2",
     "@tsconfig/node22": "22.0.0",
     "@types/jsdom": "21.1.7",
     "@types/node": "22.13.4",
     "@vitejs/plugin-vue": "5.2.1",
-    "@vitejs/plugin-vue-jsx": "4.1.1",
     "@vitest/eslint-plugin": "1.1.31",
-    "@vue/devtools-kit": "^7.7.9",
+    "@vue/compiler-sfc": "3.5.13",
     "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.4.0",
     "@vue/test-utils": "2.4.6",
@@ -41,8 +50,7 @@
     "prettier": "3.5.1",
     "typescript": "~5.7.3",
     "vite": "5.4.10",
-    "vite-plugin-vue-devtools": "7.7.2",
     "vitest": "3.0.5",
-    "vue-tsc": "2.2.2"
+    "vue-tsc": "^2.0.29"
   }
 }

@@ -2,13 +2,11 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-
 // https://vite.dev/config/
 export default defineConfig({
-  // Note: vite-plugin-vue-devtools disabled due to compatibility issues with Vite 5.4.x in this environment.
+  // Note: vite-plugin-vue-devtools and JSX plugin disabled to avoid dependency resolution issues in this environment.
   plugins: [
     vue(),
-    vueJsx(),
   ],
   resolve: {
     alias: {
